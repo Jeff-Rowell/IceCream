@@ -1,6 +1,6 @@
 from prettytable import PrettyTable
 import itertools
-
+from numba import jit
 
 class IceCream(object):
 
@@ -33,15 +33,19 @@ class IceCream(object):
         print(t)
         print()
 
+    @jit
     def permute_table(self):
         # Generate all of the different table permutations until correct table is found
-        print()
-        # lastname_permutations = list(itertools.permutations(self.lastnames))
         table_index_permutations = list(itertools.permutations(range(0, 6)))
         lastname_index_permutations = list(itertools.permutations(range(0, 4)))
-        flavor_index_permuttions = list(itertools.permutations(range(0, 3)))
-        peters_options = [(2, 1, 0), (2, 0, 1)]
         preference_options = [(0, 1), (1, 0)]
+        flavor_indices_permutations = list(itertools.permutations(range(1, 6)))
+        flavor_index_permutations = list(itertools.permutations(range(0, 3)))
+
+        index = 0
+        for indices in flavor_indices_permutations:
+            flavor_indices_permutations[index] = (0,) + indices
+            index += 1
 
         # Start by generating all last name permutations
         for lastname_indices in lastname_index_permutations:
@@ -53,46 +57,50 @@ class IceCream(object):
                 self.table[table_indices[4]][1] = self.lastnames[lastname_indices[2]]
                 self.table[table_indices[5]][1] = self.lastnames[lastname_indices[3]]
 
-                # Now, for each last name permutation, we must also generate flavor permutations
-                for flavor_indices in flavor_index_permuttions:
-                    for option in peters_options:
-                        # THIS IS PETER! He is the only one that chooses strawberry first, leaving only 5 other options
-                        self.table[0][2] = self.flavors[option[0]]
-                        self.table[0][3] = self.flavors[option[1]]
-                        self.table[0][4] = self.flavors[option[2]]
+                # We know that the first row and third column (i.e Peter) must be strawberry
+                # Additionally, we know that atleast three of the flavors need to be chocolate
+                for flavor_indices in flavor_indices_permutations:
+                    # Flavor 1
+                    self.table[flavor_indices[0]][2] = self.flavors[2]
+                    self.table[flavor_indices[1]][2] = self.flavors[0]
+                    self.table[flavor_indices[2]][2] = self.flavors[0]
+                    self.table[flavor_indices[3]][2] = self.flavors[0]
+                    self.table[flavor_indices[4]][2] = self.flavors[1]
+                    self.table[flavor_indices[5]][2] = self.flavors[1]
 
-                        self.table[1][2] = self.flavors[flavor_indices[1]]
-                        self.table[1][3] = self.flavors[flavor_indices[2]]
-                        self.table[1][4] = self.flavors[flavor_indices[0]]
+                    for flavor_table_indices, flavor_indices in \
+                            zip(flavor_indices_permutations, flavor_index_permutations):
+                        # Flavor 2
+                        self.table[flavor_table_indices[0]][3] = self.flavors[flavor_indices[0]]
+                        self.table[flavor_table_indices[1]][3] = self.flavors[flavor_indices[1]]
+                        self.table[flavor_table_indices[2]][3] = self.flavors[flavor_indices[2]]
+                        self.table[flavor_table_indices[3]][3] = self.flavors[flavor_indices[2]]
+                        self.table[flavor_table_indices[4]][3] = self.flavors[flavor_indices[1]]
+                        self.table[flavor_table_indices[5]][3] = self.flavors[flavor_indices[0]]
 
-                        self.table[2][2] = self.flavors[flavor_indices[1]]
-                        self.table[2][3] = self.flavors[flavor_indices[0]]
-                        self.table[2][4] = self.flavors[flavor_indices[2]]
+                        for flavor_table_indices, flavor_indices in \
+                                zip(flavor_indices_permutations, flavor_index_permutations):
+                            # Flavor 3
+                            self.table[flavor_table_indices[0]][4] = self.flavors[flavor_indices[0]]
+                            self.table[flavor_table_indices[1]][4] = self.flavors[flavor_indices[1]]
+                            self.table[flavor_table_indices[2]][4] = self.flavors[flavor_indices[2]]
+                            self.table[flavor_table_indices[3]][4] = self.flavors[flavor_indices[2]]
+                            self.table[flavor_table_indices[4]][4] = self.flavors[flavor_indices[1]]
+                            self.table[flavor_table_indices[5]][4] = self.flavors[flavor_indices[0]]
 
-                        self.table[3][2] = self.flavors[flavor_indices[2]]
-                        self.table[3][3] = self.flavors[flavor_indices[0]]
-                        self.table[3][4] = self.flavors[flavor_indices[1]]
+                            # Once we have generated each flavor permutation, we must also permute cone/dish options
+                            for pref in preference_options:
+                                self.table[table_indices[0]][5] = self.preference[pref[0]]
+                                self.table[table_indices[1]][5] = self.preference[pref[0]]
+                                self.table[table_indices[2]][5] = self.preference[pref[0]]
+                                self.table[table_indices[3]][5] = self.preference[pref[0]]
+                                self.table[table_indices[4]][5] = self.preference[pref[1]]
+                                self.table[table_indices[5]][5] = self.preference[pref[1]]
 
-                        self.table[4][2] = self.flavors[flavor_indices[0]]
-                        self.table[4][3] = self.flavors[flavor_indices[2]]
-                        self.table[4][4] = self.flavors[flavor_indices[1]]
-
-                        self.table[5][2] = self.flavors[flavor_indices[2]]
-                        self.table[5][3] = self.flavors[flavor_indices[1]]
-                        self.table[5][4] = self.flavors[flavor_indices[0]]
-
-                        # Once we have generated each flavor permutation, we must also check the cone/dish options
-                        for pref in preference_options:
-                            self.table[table_indices[0]][5] = self.preference[pref[0]]
-                            self.table[table_indices[1]][5] = self.preference[pref[0]]
-                            self.table[table_indices[2]][5] = self.preference[pref[0]]
-                            self.table[table_indices[3]][5] = self.preference[pref[0]]
-                            self.table[table_indices[4]][5] = self.preference[pref[1]]
-                            self.table[table_indices[5]][5] = self.preference[pref[1]]
-
-                            if self.check_table():  # Then we have found the correct names, flavors, and such
-                                self.print_table()  # Show the resulting table
-                                exit(0)             # And quit the program
+                                # Now that we have the table completely filled, check it against the problem statements
+                                if self.check_table():  # That means we have found the correct names, flavors, and such
+                                    self.print_table()  # Show the resulting table
+                                    exit(0)             # And quit the program
 
     def check_table(self):
         # Checks that exactly two of the last names are Hillman and McNeal
@@ -242,4 +250,11 @@ ice = IceCream(firstnames=["Peter", "Jacob", "Carl", "Hannah", "Naomi", "Iris"],
                lastnames=["Hillman", "McNeal", "Johnson", "Harding"])
 ice.build_table()
 # Run the permutations filling the table with the rest of the info
-ice.permute_table()
+# ice.permute_table()
+table = [["Peter", "Johnson", "Strawberry", "Chocolate", "Vanilla", "Cone"],
+         ["Jacob", "Hillman", "Chocolate", "Vanilla", "Strawberry", "Cone"],
+         ["Carl", "Harding", "Vanilla", "Strawberry", "Chocolate", "Cone"],
+         ["Hannah", "Johnson", "Chocolate", "Strawberry", "Vanilla", "Dish"],
+         ["Naomi", "Harding", "Chocolate", "Vanilla", "Strawberry", "Dish"],
+         ["Iris", "McNeal", "Vanilla", "Chocolate", "Strawberry", "Cone"]]
+ice.table = table
