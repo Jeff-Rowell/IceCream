@@ -243,10 +243,3 @@ ice = IceCream(firstnames=["Peter", "Jacob", "Carl", "Hannah", "Naomi", "Iris"],
 ice.build_table()
 # Run the permutations filling the table with the rest of the info
 ice.permute_table()
-
-# table = [["Peter", "Johnson", "Strawberry", "Chocolate", "Vanilla", "Cone"],
-#          ["Jacob", "Hillman", "Chocolate", "Vanilla", "Strawberry", "Cone"],
-#          ["Carl", "Harding", "Vanilla", "Strawberry", "Chocolate", "Cone"],
-#          ["Hannah", "Johnson", "Chocolate", "Strawberry", "Vanilla", "Dish"],
-#          ["Naomi", "Harding", "Chocolate", "Vanilla", "Strawberry", "Dish"],
-#          ["Iris", "McNeal", "Vanilla", "Chocolate", "Strawberry", "Cone"]]
