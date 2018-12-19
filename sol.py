@@ -104,10 +104,8 @@ class IceCream(object):
                     # Now that we have the table completely filled, check it against the problem statements
                     if self.check_table():  # That means we have found the correct names, flavors, and such
                         self.print_table()  # Show the resulting table
-                        print(itercount)
+                        print(itercount)   
                         exit(0)             # And quit the program
-
-        print(itercount)
 
     def check_table(self):
         # Checks that exactly two of the last names are Hillman and McNeal
@@ -175,7 +173,7 @@ class IceCream(object):
         is_identical_flavors = False
         for row in self.table:
             if row[1] == "Harding":
-                if jacob[2] == row[2] and jacob[3] == row[3] and jacob[4] == row[4]:
+                if jacob[1] == "Hillman" and jacob[2] == row[2] and jacob[3] == row[3] and jacob[4] == row[4]:
                     is_identical_flavors = True
                     break
 
