@@ -39,7 +39,6 @@ class IceCream(object):
         # Generate all of the different table permutations until correct table is found
         table_index_permutations = list(itertools.permutations(range(0, 6)))
         lastname_index_permutations = list(itertools.permutations(range(0, 4)))
-        preference_options = [(0, 1), (1, 0)]
         flavor_indices_permutations = list(itertools.permutations(range(1, 6)))
         flavor_index_permutations = list(itertools.permutations(range(0, 3)))
 
@@ -70,107 +69,48 @@ class IceCream(object):
 
                 # We know that the first row and third column (i.e Peter) must be strawberry
                 # Additionally, we know that atleast three of the flavors need to be chocolate
-                # for flavor_indices in flavor_indices_permutations:
-                #     # Flavor 1
-                #     self.table[flavor_indices[0]][2] = self.flavors[2]
-                #     self.table[flavor_indices[1]][2] = self.flavors[0]
-                #     self.table[flavor_indices[2]][2] = self.flavors[0]
-                #     self.table[flavor_indices[3]][2] = self.flavors[0]
-                #     self.table[flavor_indices[4]][2] = self.flavors[1]
-                #     self.table[flavor_indices[5]][2] = self.flavors[1]
                 for flavor_indices in flavor_index_permutations:
                     for flavor_table_indices in flavor_indices_permutations:
-                        # # Flavor 1
-                        # self.table[flavor_table_indices[0]][2] = self.flavors[flavor_indices[0]]
-                        # self.table[flavor_table_indices[1]][2] = self.flavors[flavor_indices[1]]
-                        # self.table[flavor_table_indices[2]][2] = self.flavors[flavor_indices[0]]
-                        # self.table[flavor_table_indices[3]][2] = self.flavors[flavor_indices[2]]
-                        # self.table[flavor_table_indices[4]][2] = self.flavors[flavor_indices[1]]
-                        # self.table[flavor_table_indices[5]][2] = self.flavors[flavor_indices[0]]
-                        #
-                        # # Flavor 2
-                        # self.table[flavor_table_indices[0]][3] = self.flavors[flavor_indices[1]]
-                        # self.table[flavor_table_indices[1]][3] = self.flavors[flavor_indices[2]]
-                        # self.table[flavor_table_indices[2]][3] = self.flavors[flavor_indices[1]]
-                        # self.table[flavor_table_indices[3]][3] = self.flavors[flavor_indices[0]]
-                        # self.table[flavor_table_indices[4]][3] = self.flavors[flavor_indices[0]]
-                        # self.table[flavor_table_indices[5]][3] = self.flavors[flavor_indices[1]]
-                        #
-                        # # Flavor 3
-                        # self.table[flavor_table_indices[0]][4] = self.flavors[flavor_indices[2]]
-                        # self.table[flavor_table_indices[1]][4] = self.flavors[flavor_indices[0]]
-                        # self.table[flavor_table_indices[2]][4] = self.flavors[flavor_indices[2]]
-                        # self.table[flavor_table_indices[3]][4] = self.flavors[flavor_indices[1]]
-                        # self.table[flavor_table_indices[4]][4] = self.flavors[flavor_indices[2]]
-                        # self.table[flavor_table_indices[5]][4] = self.flavors[flavor_indices[0]]
-
-                        # =================================================================================
-                        # if self.table[flavor_table_indices[1]][0] == "Jacob" \
-                        #         and self.table[flavor_table_indices[2]][1] == "Harding" or \
-                        #         self.table[flavor_table_indices[1]][1] == "Harding" \
-                        #         and self.table[flavor_table_indices[2]][0] == "Jacob":
-
-                        self.table[flavor_table_indices[0]][2] = self.flavors[2]  # Always Peter and strawberry
-                        self.table[flavor_table_indices[1]][2] = self.flavors[0]
-                        self.table[flavor_table_indices[2]][2] = self.flavors[0]
-                        self.table[flavor_table_indices[3]][2] = self.flavors[0]
-                        self.table[flavor_table_indices[4]][2] = self.flavors[1]
-                        self.table[flavor_table_indices[5]][2] = self.flavors[1]
 
                         # self.table[flavor_table_indices[0]][2] = self.flavors[flavor_indices[2]]
-                        self.table[flavor_table_indices[0]][3] = self.flavors[flavor_indices[0]]
-                        self.table[flavor_table_indices[0]][4] = self.flavors[flavor_indices[1]]
+                        self.table[flavor_table_indices[0]][2] = self.flavors[2]  # Always Peter and strawberry
+                        self.table[flavor_table_indices[0]][3] = self.flavors[0]
+                        self.table[flavor_table_indices[0]][4] = self.flavors[1]
 
                         # self.table[flavor_table_indices[1]][2] = self.flavors[flavor_indices[0]]
-                        self.table[flavor_table_indices[1]][3] = self.flavors[flavor_indices[1]]
-                        self.table[flavor_table_indices[1]][4] = self.flavors[flavor_indices[2]]
+                        self.table[flavor_table_indices[1]][2] = self.flavors[0]
+                        self.table[flavor_table_indices[1]][3] = self.flavors[1]
+                        self.table[flavor_table_indices[1]][4] = self.flavors[2]
 
                         # self.table[flavor_table_indices[2]][2] = self.flavors[flavor_indices[0]]
-                        self.table[flavor_table_indices[2]][3] = self.flavors[flavor_indices[1]]
-                        self.table[flavor_table_indices[2]][4] = self.flavors[flavor_indices[2]]
+                        self.table[flavor_table_indices[2]][2] = self.flavors[0]
+                        self.table[flavor_table_indices[2]][3] = self.flavors[1]
+                        self.table[flavor_table_indices[2]][4] = self.flavors[2]
 
                         # self.table[flavor_table_indices[3]][2] = self.flavors[flavor_indices[0]]
-                        self.table[flavor_table_indices[3]][3] = self.flavors[flavor_indices[2]]
-                        self.table[flavor_table_indices[3]][4] = self.flavors[flavor_indices[1]]
+                        self.table[flavor_table_indices[3]][2] = self.flavors[0]
+                        self.table[flavor_table_indices[3]][3] = self.flavors[2]
+                        self.table[flavor_table_indices[3]][4] = self.flavors[1]
 
                         # self.table[flavor_table_indices[4]][2] = self.flavors[flavor_indices[1]]
-                        self.table[flavor_table_indices[4]][3] = self.flavors[flavor_indices[0]]
-                        self.table[flavor_table_indices[4]][4] = self.flavors[flavor_indices[2]]
+                        self.table[flavor_table_indices[4]][2] = self.flavors[1]
+                        self.table[flavor_table_indices[4]][3] = self.flavors[0]
+                        self.table[flavor_table_indices[4]][4] = self.flavors[2]
 
                         # self.table[flavor_table_indices[5]][2] = self.flavors[flavor_indices[1]]
-                        self.table[flavor_table_indices[5]][3] = self.flavors[flavor_indices[2]]
-                        self.table[flavor_table_indices[5]][4] = self.flavors[flavor_indices[0]]
+                        self.table[flavor_table_indices[5]][2] = self.flavors[1]
+                        self.table[flavor_table_indices[5]][3] = self.flavors[2]
+                        self.table[flavor_table_indices[5]][4] = self.flavors[0]
 
-                        # ==========================================================================================
-                        # for flavor_table_indices, flavor_indices in \
-                        #         zip(flavor_indices_permutations, flavor_index_permutations):
-                        #     # Flavor 2
-                        #     self.table[flavor_table_indices[0]][3] = self.flavors[flavor_indices[0]]
-                        #     self.table[flavor_table_indices[1]][3] = self.flavors[flavor_indices[1]]
-                        #     self.table[flavor_table_indices[2]][3] = self.flavors[flavor_indices[2]]
-                        #     self.table[flavor_table_indices[3]][3] = self.flavors[flavor_indices[2]]
-                        #     self.table[flavor_table_indices[4]][3] = self.flavors[flavor_indices[1]]
-                        #     self.table[flavor_table_indices[5]][3] = self.flavors[flavor_indices[0]]
-                        #
-                        #     for flavor_table_indices, flavor_indices in \
-                        #             zip(flavor_indices_permutations, flavor_index_permutations):
-                        #         # Flavor 3
-                        #         self.table[flavor_table_indices[0]][4] = self.flavors[flavor_indices[0]]
-                        #         self.table[flavor_table_indices[1]][4] = self.flavors[flavor_indices[1]]
-                        #         self.table[flavor_table_indices[2]][4] = self.flavors[flavor_indices[2]]
-                        #         self.table[flavor_table_indices[3]][4] = self.flavors[flavor_indices[2]]
-                        #         self.table[flavor_table_indices[4]][4] = self.flavors[flavor_indices[1]]
-                        #         self.table[flavor_table_indices[5]][4] = self.flavors[flavor_indices[0]]
+                        for table_indices in table_index_permutations:
+                            # Once we have generated each flavor permutation, we must also permute cone/dish options
+                            self.table[table_indices[0]][5] = self.preference[1]
+                            self.table[table_indices[1]][5] = self.preference[1]
+                            self.table[table_indices[2]][5] = self.preference[1]
+                            self.table[table_indices[3]][5] = self.preference[1]
+                            self.table[table_indices[4]][5] = self.preference[0]
+                            self.table[table_indices[5]][5] = self.preference[0]
 
-                        # Once we have generated each flavor permutation, we must also permute cone/dish options
-                        for pref in preference_options:
-                            self.table[table_indices[0]][5] = self.preference[pref[0]]
-                            self.table[table_indices[1]][5] = self.preference[pref[0]]
-                            self.table[table_indices[2]][5] = self.preference[pref[0]]
-                            self.table[table_indices[3]][5] = self.preference[pref[0]]
-                            self.table[table_indices[4]][5] = self.preference[pref[1]]
-                            self.table[table_indices[5]][5] = self.preference[pref[1]]
-                            self.print_table()
                             itercount += 1
                             # Now that we have the table completely filled, check it against the problem statements
                             if self.check_table():  # That means we have found the correct names, flavors, and such
