@@ -1,6 +1,6 @@
 IceCream solves the following problem using a brute force algorithm with minimal/no pruning. The only permutation that
 is somewhat reduced is that Peter selected strawberry first, other than that the program attempts all possible 
-combinations. This solution takes 1,388,496 iterations to find the correct answer.
+combinations. This solution takes 1,389,136 iterations to find the correct answer.
 
 **Problem Statement:**
 
