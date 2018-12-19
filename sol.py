@@ -40,7 +40,6 @@ class IceCream(object):
         table_index_permutations = list(itertools.permutations(range(0, 6)))
         lastname_index_permutations = list(itertools.permutations(range(0, 4)))
         flavor_indices_permutations = list(itertools.permutations(range(1, 6)))
-        flavor_index_permutations = list(itertools.permutations(range(0, 3)))
 
         index = 0
         for indices in flavor_indices_permutations:
@@ -93,21 +92,21 @@ class IceCream(object):
                     self.table[flavor_table_indices[5]][3] = self.flavors[2]
                     self.table[flavor_table_indices[5]][4] = self.flavors[0]
 
-                    for table_indices in table_index_permutations:
-                        # Once we have generated each flavor permutation, we must also permute cone/dish options
-                        self.table[0][5] = self.preference[1]
-                        self.table[1][5] = self.preference[1]
-                        self.table[2][5] = self.preference[1]
-                        self.table[3][5] = self.preference[0]
-                        self.table[4][5] = self.preference[0]
-                        self.table[5][5] = self.preference[1]
+                    # Once we have generated each flavor permutation, we must also permute cone/dish options
+                    self.table[0][5] = self.preference[1]
+                    self.table[1][5] = self.preference[1]
+                    self.table[2][5] = self.preference[1]
+                    self.table[3][5] = self.preference[0]
+                    self.table[4][5] = self.preference[0]
+                    self.table[5][5] = self.preference[1]
 
-                        itercount += 1
-                        # Now that we have the table completely filled, check it against the problem statements
-                        if self.check_table():  # That means we have found the correct names, flavors, and such
-                            self.print_table()  # Show the resulting table
-                            print(itercount)
-                            exit(0)             # And quit the program
+                    itercount += 1
+                    # Now that we have the table completely filled, check it against the problem statements
+                    if self.check_table():  # That means we have found the correct names, flavors, and such
+                        self.print_table()  # Show the resulting table
+                        print(itercount)
+                        exit(0)             # And quit the program
+
         print(itercount)
 
     def check_table(self):
